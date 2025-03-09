@@ -10,12 +10,12 @@ export const UserList = () => {
       setUsers(data);
     };
     fetchedUsers();
-    console.log("");
   }, []);
 
   return (
     <div>
-      <ul>
+      <h1> List of Users </h1>
+      <ol>
         {users.map((user) => (
           <li key={user.id}>
             <UserItem
@@ -25,7 +25,7 @@ export const UserList = () => {
             />
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   );
 };

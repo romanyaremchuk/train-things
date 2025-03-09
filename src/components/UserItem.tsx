@@ -15,6 +15,9 @@ export const UserItem: React.FC<Omit<User, "id">> = ({
         <div className="user__username">{username}</div>
         <div className="user__email">{email}</div>
       </div>
+      <div className="user__deleteButton">
+        <button>Delete</button>
+      </div>
     </div>
   );
 };
