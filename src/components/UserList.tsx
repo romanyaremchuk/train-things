@@ -2,16 +2,11 @@ import React, { useEffect, useState } from "react";
 import { User, getAllUsers } from "../api/api-users";
 import { UserItem } from "./UserItem";
 
-export const UserList = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  useEffect(() => {
-    const fetchedUsers = async () => {
-      const data: User[] = await getAllUsers();
-      setUsers(data);
-    };
-    fetchedUsers();
-  }, []);
+interface Props {
+  users: User[];
+}
 
+export const UserList = ({ users }: Props) => {
   return (
     <div>
       <h1> List of Users </h1>

@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { getAllUsers, User } from "../api/api-users";
+import { User } from "../api/api-users";
 
-const FilterForm = () => {
-  const [users, setUsers] = useState<User[]>([]);
+interface Props {
+  users: User[];
+  updateUsers: React.Dispatch<React.SetStateAction<User[]>>;
+}
+
+const FilterForm = ({ users, updateUsers }: Props) => {
+  const [nameToSearch, setNameToSearch] = useState<string>("");
 
   useEffect(() => {
-    const fetchedUsers = async () => {
-      const data: User[] = await getAllUsers();
-      setUsers(data);
-    };
-    fetchedUsers();
+    updateUsers(users);
+    console.log("use effect update users");
   }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("Submit");
+    if (nameToSearch.length > 0) {
+      console.log("name to search submit " + nameToSearch);
+      users.filter((u) => u.name == nameToSearch);
+      //TODO store it like a normal human pls
+      let filtered: User[] = users.map((u) => console.log(u.name));
+      console.log("name to search submit " + nameToSearch);
+    }
   }
 
   return (
@@ -22,7 +30,11 @@ const FilterForm = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Search name
-          <input placeholder={"Search name"} />
+          <input
+            value={nameToSearch}
+            onChange={(e) => setNameToSearch(e.target.value)}
+            placeholder={"Search name"}
+          />
           <button type="submit"> Sumbit </button>
         </label>
       </form>
