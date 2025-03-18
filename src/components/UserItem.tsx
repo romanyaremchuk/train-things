@@ -45,17 +45,16 @@ export const UserItem: React.FC<Props> = (user) => {
             <strong>User created:</strong> {timeSinceCreation}
           </div>
         )}
+        <button
+          onClick={() => displaySecondsSinceCreation(user.userCreatedDated)}
+        >
+          Update time
+        </button>
       </div>
       <div className="user__deleteButton">
         <button onClick={() => user.onDelete(user)}>Delete</button>
       </div>
-      <div className="user__updateTimeButton">
-        <button
-          onClick={() => displaySecondsSinceCreation(user.userCreatedDated)}
-        >
-          Show time since user was created
-        </button>
-      </div>
+      <div className="user__updateTimeButton"></div>
     </div>
   );
 };
