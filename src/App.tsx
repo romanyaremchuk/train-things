@@ -7,34 +7,56 @@ import ModalWindow from "./components/ModalWindow";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
+  const [modalActive, setModalActive] = useState(false);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [newUserId, setnewUserId] = useState<number>(0);
+  const [resetFilter, setResetFilter] = useState(false);
 
-  //TODO fix to show the button Add user "in line"
   const navigationStyle = {
-    display: "center",
+    display: "flex",
+    padding: "15px",
+    margin: "10px",
+  };
+
+  const fetchedUsers = async () => {
+    const data: User[] = await getAllUsers();
+    setUsers(data);
+    setFilteredUsers(data);
+    setnewUserId(data.length + 1);
+    setResetFilter((prev) => !prev);
   };
 
   useEffect(() => {
-    const fetchedUsers = async () => {
-      const data: User[] = await getAllUsers();
-      setUsers(data);
-      setFilteredUsers(data);
-    };
-
     fetchedUsers();
   }, []);
 
-  const [modalActive, setModalActive] = useState(false);
+  function handleDelete(userToDelete: User) {
+    setFilteredUsers((prev) => prev.filter((u) => u.id !== userToDelete.id));
+  }
 
   return (
     <div className="App">
       <div style={navigationStyle}>
-        <FilterForm users={users} setUsers={setFilteredUsers} />
+        <FilterForm
+          users={filteredUsers}
+          setUsers={setFilteredUsers}
+          resetFilter={resetFilter}
+        />
         <button onClick={() => setModalActive(true)}>Add User</button>
+        <button onClick={fetchedUsers}> Fetch Users</button>
       </div>
 
-      <ModalWindow active={modalActive} setActive={setModalActive} />
-      <UserList users={filteredUsers} />
+      <ModalWindow
+        active={modalActive}
+        setActive={setModalActive}
+        newUserId={newUserId}
+        addNewUser={(newUser) => setFilteredUsers([newUser, ...filteredUsers])}
+      />
+      <UserList
+        users={filteredUsers}
+        setUsers={setUsers}
+        onDeleteUser={handleDelete}
+      />
     </div>
   );
 }

@@ -1,13 +1,24 @@
+export interface Users {
+  users: User[];
+}
+
+export interface Hair {
+  color: string;
+  type: string;
+}
+
 export interface User {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   username: string;
+  birthDate: Date;
   email: string;
-  //TODO add adress and mb inner prop or obj?
+  hair?: Hair;
 }
 
 export async function getAllUsers(): Promise<User[]> {
-  const url = "https://jsonplaceholder.typicode.com/users";
+  const url = "https://dummyjson.com/users";
 
   try {
     const response = await fetch(url);
@@ -15,17 +26,11 @@ export async function getAllUsers(): Promise<User[]> {
       throw new Error("Response status: " + response.status);
     }
 
-    const json = await response.json();
-    return json;
+    const json: Users = await response.json();
+    return json.users;
   } catch (error) {
     console.error(error);
   }
 
   return [];
 }
-
-// getAllUsers()
-//   .then((users) => users.map((user) => console.log(user.name)))
-//   .catch((error) => console.error(error));
-
-//export default getAllUsers;
