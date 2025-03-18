@@ -22,9 +22,13 @@ function App() {
 
   const fetchedUsers = async () => {
     const data: User[] = await getAllUsers();
-    setUsers(data);
-    setFilteredUsers(data);
-    setnewUserId(data.length + 1);
+    const usersWithDate = data.map((u) => ({
+      ...u,
+      userCreatedDated: new Date(),
+    }));
+    setUsers(usersWithDate);
+    setFilteredUsers(usersWithDate);
+    setnewUserId(usersWithDate.length + 1);
     setResetFilter((prev) => !prev);
   };
 

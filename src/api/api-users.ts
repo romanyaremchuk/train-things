@@ -14,6 +14,7 @@ export interface User {
   username: string;
   age: number;
   birthDate: Date;
+  userCreatedDated: Date;
   email: string;
   hair?: Hair;
 }

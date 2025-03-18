@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { User } from "../api/api-users";
 
 interface Props extends User {
@@ -6,6 +6,15 @@ interface Props extends User {
 }
 
 export const UserItem: React.FC<Props> = (user) => {
+  const [timeSinceCreation, setTimeSinceCreation] = useState<number>(0);
+
+  function displaySecondsSinceCreation(userCreationDate: Date): number {
+    const seconds =
+      new Date().getSeconds() - new Date(userCreationDate).getSeconds();
+    setTimeSinceCreation(seconds);
+    return seconds;
+  }
+
   return (
     <div className="userItem">
       <div className="user__content">
@@ -26,9 +35,26 @@ export const UserItem: React.FC<Props> = (user) => {
         {user.hair?.type && (
           <div className="user__hair__color">Hair type: {user.hair?.type}</div>
         )}
+        <div className="createdDate">
+          <strong>User created:</strong>{" "}
+          {new Date(user.userCreatedDated).toLocaleDateString()}
+        </div>
+
+        {timeSinceCreation !== 0 && (
+          <div className="createdDateSeconds">
+            <strong>User created:</strong> {timeSinceCreation}
+          </div>
+        )}
       </div>
       <div className="user__deleteButton">
         <button onClick={() => user.onDelete(user)}>Delete</button>
+      </div>
+      <div className="user__updateTimeButton">
+        <button
+          onClick={() => displaySecondsSinceCreation(user.userCreatedDated)}
+        >
+          Show time since user was created
+        </button>
       </div>
     </div>
   );

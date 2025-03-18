@@ -24,6 +24,7 @@ const ModalWindow: React.FC<Props> = ({
     username: "",
     age: 0,
     birthDate: new Date(),
+    userCreatedDated: new Date(),
     email: "",
     hair: {
       color: "",

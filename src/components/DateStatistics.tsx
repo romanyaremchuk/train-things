@@ -20,9 +20,9 @@ const DateStatistics = ({ users }: Props) => {
         Soviet Union collapse happened in 1991. How many people were born before
         Soviet Union and after?
       </p>
-      <h3> Before SU collapse:</h3>
+      <h6> Before SU collapse:</h6>
       {beforeSU.length}
-      <h3> After SU collapse: </h3>
+      <h6> After SU collapse: </h6>
       {afterSU.length}
     </div>
   );

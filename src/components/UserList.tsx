@@ -23,6 +23,7 @@ export const UserList = ({ users, onDeleteUser }: Props) => {
               lastName={user.lastName}
               username={user.username}
               birthDate={user.birthDate}
+              userCreatedDated={user.userCreatedDated}
               email={user.email}
               hair={user.hair}
               onDelete={onDeleteUser}
