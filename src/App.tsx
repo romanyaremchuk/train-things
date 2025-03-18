@@ -4,7 +4,8 @@ import "./styles/App.css";
 import FilterForm from "./components/FilterForm";
 import { getAllUsers, User } from "./api/api-users";
 import ModalWindow from "./components/ModalWindow";
-import Statistics from "./components/Statistics";
+import AgeStatistics from "./components/Statistics";
+import DateStatistics from "./components/DateStatistics";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -53,7 +54,8 @@ function App() {
         newUserId={newUserId}
         addNewUser={(newUser) => setFilteredUsers([newUser, ...filteredUsers])}
       />
-      <Statistics users={users} />
+      <AgeStatistics users={users} />
+      <DateStatistics users={users} />
       <UserList
         users={filteredUsers}
         setUsers={setUsers}
