@@ -18,6 +18,7 @@ export const UserList = ({ users, onDeleteUser }: Props) => {
           <li key={user.id}>
             <UserItem
               id={user.id}
+              age={user.age}
               firstName={user.firstName}
               lastName={user.lastName}
               username={user.username}

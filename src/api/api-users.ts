@@ -12,6 +12,7 @@ export interface User {
   firstName: string;
   lastName: string;
   username: string;
+  age: number;
   birthDate: Date;
   email: string;
   hair?: Hair;
